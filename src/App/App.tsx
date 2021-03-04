@@ -1,5 +1,11 @@
+import { Gallery } from '../components/Gallery';
+
 import './App.css';
 
 export const App = () => {
-  return <div className="App">Test</div>;
+  return (
+    <div className="App">
+      <Gallery />
+    </div>
+  );
 };
