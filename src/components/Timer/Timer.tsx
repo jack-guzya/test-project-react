@@ -1,5 +1,8 @@
 import { FormEvent, ChangeEvent, useState } from 'react';
 import { useTimer } from '../../hooks/use-timer';
+import { Section } from '../../common/Section';
+import { Title } from '../../common/Title';
+import style from './Timer.module.css';
 
 export const Timer: React.FC = () => {
   const [time, setTime] = useState('');
@@ -34,11 +37,32 @@ export const Timer: React.FC = () => {
   const SECONDS_INDEX = 2;
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input name="time" type="time" value={time} onChange={handleTimerChange} />
-        <input name="gmt" type="number" value={GMT} min={-12} max={14} onChange={handleGMTChange} />
-        <input name="link" type="text" value={link} onChange={handleLinkChange} />
+    <Section>
+      <Title>Timer</Title>
+
+      <form className={style.form} onSubmit={handleSubmit}>
+        <label className={style.label}>
+          Time:
+          <input name="time" type="time" value={time} onChange={handleTimerChange} />
+        </label>
+
+        <label className={style.label}>
+          GMT:
+          <input
+            name="gmt"
+            type="number"
+            value={GMT}
+            min={-12}
+            max={14}
+            onChange={handleGMTChange}
+          />
+        </label>
+
+        <label className={style.label}>
+          Youtube Video ID:
+          <input name="link" type="text" value={videoID} onChange={handleLinkChange} />
+        </label>
+
         <button type="submit">Start</button>
         <button type="button" onClick={stopTimer}>
           Stop
@@ -46,7 +70,7 @@ export const Timer: React.FC = () => {
       </form>
 
       {state === 'start' && remainingTime && (
-        <div>
+        <div className={style.timer}>
           <span>{remainingTime[HOURS_INDEX]}</span>:<span>{remainingTime[MINUTES_INDEX]}</span>:
           <span>{remainingTime[SECONDS_INDEX]}</span>
         </div>
@@ -54,13 +78,12 @@ export const Timer: React.FC = () => {
 
       {state === 'finish' && (
         <iframe
-          width="640"
-          height="360"
+          className={style.player}
           title="Youtube player"
           sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-presentation"
           src={`https://youtube.com/embed/${videoID}?autoplay=1&mute=1`}
-        ></iframe>
+        />
       )}
-    </>
+    </Section>
   );
 };

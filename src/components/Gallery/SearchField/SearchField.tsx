@@ -5,7 +5,7 @@ type SearchFieldProps = {
 };
 
 export const SearchField: React.FC<SearchFieldProps> = ({ onSubmit }) => {
-  const [search, setSearchValue] = useState<string>('');
+  const [search, setSearchValue] = useState<string>('spring');
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) =>
     setSearchValue(e.currentTarget.value);
